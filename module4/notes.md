@@ -1,0 +1,1 @@
+In this module, I learned the importance of version control and practiced how to add, commit and push code. Also, learned how to created branches, merge them and create pull requests.
