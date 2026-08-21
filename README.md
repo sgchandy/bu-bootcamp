@@ -1,2 +1,2 @@
 # bu-bootcamp
-BU Online AI Programs Foundations Bootcamp
+BU Online AI Programs Foundations Bootcamp.
