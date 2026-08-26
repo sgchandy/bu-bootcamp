@@ -1,41 +1,59 @@
 package module2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.*;
 
 public class GradeAnalyzerTest {
-    
+
     @Test
-    void calculateAverage_returnsZero_whenListIsEmpty() { 
-        ArrayList<Integer> scores = new ArrayList<>(); 
-        assertEquals(0.0, GradeAnalyzer.calculateAverage(scores)); 
-    } 
- 
+    void calculateAverage_returnsZero_whenListIsEmpty() {
+        ArrayList<Integer> scores = new ArrayList<>();
+        assertEquals(0.0, GradeAnalyzer.calculateAverage(scores));
+    }
+
     @Test
-    void calculateAverage_returnsCorrectAverage_forTypicalScores() { 
-        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(80, 90, 100)); 
+    void calculateAverage_returnsCorrectAverage_forTypicalScores() {
+        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(80, 90, 100));
         assertEquals(90.0, GradeAnalyzer.calculateAverage(scores));
     }
- 
+
     @Test
-    void calculateAverage_returnsSingleValue_whenListHasOneItem() { 
-        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(75)); 
+    void calculateAverage_returnsSingleValue_whenListHasOneItem() {
+        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(75));
         assertEquals(75.0, GradeAnalyzer.calculateAverage(scores));
-    } 
- 
-    @Test
-    void calculateAverage_returnsDouble_notInteger() { 
-        // 1 + 2 = 3, divided by 2 = 1.5, not 1
-        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(1, 2)); 
-        assertEquals(1.5, GradeAnalyzer.calculateAverage(scores)); 
-    } 
- 
-    @Test 
-    void calculateAverage_handlesAllSameValues() { 
-        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(88, 88, 88)); 
-        assertEquals(88.0, GradeAnalyzer.calculateAverage(scores)); 
     }
+
+    @Test
+    void calculateAverage_returnsDouble_notInteger() {
+        // 1 + 2 = 3, divided by 2 = 1.5, not 1
+        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(1, 2));
+        assertEquals(1.5, GradeAnalyzer.calculateAverage(scores));
+    }
+
+    @Test
+    void calculateAverage_handlesAllSameValues() {
+        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(88, 88, 88));
+        assertEquals(88.0, GradeAnalyzer.calculateAverage(scores));
+    }
+
+    @Test
+    void readScores_returnsEmptyList_whenFileDoesNotExist() {
+        ArrayList<Integer> scores = GradeAnalyzer.readScores("missing_file.txt");
+        assertEquals(0, scores.size());
+    }
+
+    @Test
+    void writeReport_createsOutputFile() {
+        ArrayList<Integer> scores = new ArrayList<>(Arrays.asList(90, 80, 70));
+        GradeAnalyzer.writeReport(scores, 80.0, 90, 70, "test_report.txt");
+        File reportFile = new File("test_report.txt");
+        assertTrue(reportFile.exists());
+        reportFile.delete();
+    }
+
 }
